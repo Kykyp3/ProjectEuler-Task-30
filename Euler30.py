@@ -17,13 +17,18 @@ def compute_numbers(power):
             numbers.append(number)
     return numbers
 
-def compute_bounds(power):
-    upper_bounds = [sum(9*10**i for i in range(1,b))+9 for b in range(1, 10)]
+def compute_bounds(power,digit):
+    upper_bounds = [sum(digit*10**i for i in range(1,b))+digit for b in range(1, 10)]
     upper_powers = []
     for i in range(0,len(upper_bounds)-1,1):
-        upper_powers.append(upper_bounds[i]**power)
-    print(upper_bounds,upper_powers)
+        bound = upper_bounds[i]
+        boundpower = 0
+        while bound:
+            boundpower += (bound % 10)**power
+            bound //= 10
+        upper_powers.append(boundpower)
+    return(upper_bounds,upper_powers)
 
 
 if __name__=="__main__":
-    print(compute_numbers(5))
+    print(compute_bounds(5,9))
